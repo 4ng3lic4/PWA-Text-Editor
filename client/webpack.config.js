@@ -17,10 +17,32 @@ module.exports = () => {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
+    //Add webpack plugin to generate HTML
+    //https://webpack.js.org/plugins/html-webpack-plugin/
     plugins: [
-      
-    ],
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title:'JATE'
+      })
+          //Add webpack plugin to generate service worker and manifest file
+          new InjectManifest({
+            swSrc:'./src-sw.js',
+            swDest:'src-sw.js'
+          }),
+          new WebpackPwaManifest({
+            fingerfrints: false,
+            inject: true,
+            name: Text Editor,
+            short_name:'JATE',
+            description: 'Text editor',
+            background_color: '#225ca3',
+            theme_color: '#225ca23',
 
+
+          })
+
+    ],
+//
     module: {
       rules: [
         
